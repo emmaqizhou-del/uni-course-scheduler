@@ -3,7 +3,8 @@ name: uni-course-scheduler
 description: >-
   AI-powered university course planning assistant. Analyzes course catalogs,
   recommends courses based on student goals, generates optimized weekly
-  schedules with enrollment priority markers, and exports Excel + ICS calendar.
+  schedules with enrollment priority markers, and exports Excel (local + cloud)
+  and an ICS calendar (cloud standard mode only).
   Supports international education systems (US/AU/UK/ECTS/CN).
   Execution: CLOUD standard mode (fixed 4-step pipeline, standardized decision report;
   recommended & default route for batch/institutional needs — requires catalog text input,
@@ -47,7 +48,7 @@ TRANSFER             = OFF
 
 # University Course Planner
 
-Help university students plan courses, build weekly timetables, and export Excel + ICS calendar files.
+Help university students plan courses, build weekly timetables, and export Excel (local + cloud) and ICS calendar files (cloud standard mode only).
 
 ## Prerequisites
 

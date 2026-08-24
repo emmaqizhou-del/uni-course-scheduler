@@ -1,6 +1,6 @@
 # uni-course-scheduler 大学选课排课助手
 
-> AI 大学选课规划助理：分析官方课程目录，智能推荐课程，生成无冲突的每周课表，并导出 Excel + ICS 日历文件。
+> AI 大学选课规划助理：分析官方课程目录，智能推荐课程，生成无冲突的每周课表，并导出 Excel（本地/云端）与 ICS 日历文件（云端标准模式专属）。
 
 [![License](https://img.shields.io/badge/license-Personal%20Use-blue.svg)](LICENSE)
 

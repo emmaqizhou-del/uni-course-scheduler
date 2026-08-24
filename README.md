@@ -1,6 +1,6 @@
 # uni-course-scheduler
 
-> AI-powered university course planning assistant — analyze course catalogs, get smart course recommendations, build conflict-free weekly timetables, and export Excel + ICS calendar files.
+> AI-powered university course planning assistant — analyze course catalogs, get smart course recommendations, build conflict-free weekly timetables, and export Excel (local + cloud) and ICS calendar files (cloud standard mode only).
 
 [![License](https://img.shields.io/badge/license-Personal%20Use-blue.svg)](LICENSE)
 

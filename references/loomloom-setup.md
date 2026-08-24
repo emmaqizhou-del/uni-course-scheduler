@@ -24,20 +24,30 @@ LoomLoom 是批量 LLM 云端执行平台，把结构化任务并行跑在固定
 
 ## 安装 LoomLoom
 
+> 🔴 **Token 安全警告（必读）**：Token / API 密钥**等于你的密码**——它能让任何人以你的身份扣费。
+> **绝对不要把你的 Token 粘贴到任何 AI 对话、聊天窗口、群聊或公开渠道。**
+> 一旦 Token 被泄露（如贴进过对话），请立即去平台控制台**作废并重新生成**。
+> 推荐做法：用下面的 `loomloom login` 交互式登录（密钥不经过对话），或把密钥写入本机环境变量文件（`~/.zshrc`），而不是贴进对话。
+
 ### 方式 A：一句话安装（推荐）
 
-把下面这段话粘贴给任意 AI 助手（**把平台地址换成你上面选的那一个**）：
+把下面这段话粘贴给任意 AI 助手（**不要包含你的 Token**，Token 用后面的 `loomloom login` 交互式登录）：
 
 > 请你在这个项目里安装 LoomLoom：安装地址是
 > https://github.com/Cogfoundry-ai/loomloom 或
 > https://gitee.com/cogfoundry/loomloom
 > 服务地址：【你选平台的 server，见上表】
-> Token 是【你选平台上申请的密钥】。
 > 安装好之后帮我运行一次 doctor 检查是否正常。
+
+**安装后登录（推荐，密钥不经过对话）：**
+```bash
+loomloom login -s <你选平台的server>    # 交互式输入 Token，不会出现在对话里
+loomloom doctor -s <你选平台的server>   # 验证登录成功
+```
 
 ### 方式 B：手动安装
 
-1. 按上表去你选平台的**控制台申请 API 密钥**（胜算云：console.shengsuanyun.com；CogFoundry：CogFoundry 控制台）
+1. 按上表去你选平台的**控制台申请 API 密钥**（胜算云：console.shengsuanyun.com；CogFoundry：CogFoundry 控制台）——**密钥只写进本机文件，不要贴进任何对话**
 2. 克隆仓库并按 README 安装：
    ```bash
    git clone https://gitee.com/cogfoundry/loomloom.git
