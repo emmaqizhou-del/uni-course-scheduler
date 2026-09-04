@@ -7,7 +7,7 @@
   Date: 2026-08-03
 -->
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1909,6 +1909,13 @@
         transform: none;
       }
     }
+
+    /* ===================== bilingual (light) ===================== */
+    .lang-switch { display: inline-flex; gap: 2px; margin-left: 14px; align-items: center; }
+    .lang-switch button { background: transparent; border: 1px solid var(--primary); color: var(--primary);
+      font-size: 12px; padding: 4px 8px; cursor: pointer; border-radius: 4px; line-height: 1; }
+    .lang-switch button.active { background: var(--primary); color: #fff; }
+    .dl-ziplink { font-size: 14px; margin-right: 12px; color: var(--primary); font-weight: 600; }
   </style>
 </head>
 <body id="top">
@@ -1918,9 +1925,13 @@
     <div class="container nav-inner">
       <a href="#top" class="nav-logo">uni-course-scheduler</a>
       <nav class="nav-links">
-        <a href="#features" class="nav-link">功能</a>
-        <a href="#workflow" class="nav-link">流程</a>
-        <a href="#install" class="nav-link">安装</a>
+        <a href="#features" class="nav-link" data-zh="功能" data-en="Features">功能</a>
+        <a href="#workflow" class="nav-link" data-zh="流程" data-en="How it works">流程</a>
+        <a href="#install" class="nav-link" data-zh="安装" data-en="Install">安装</a>
+        <span class="lang-switch">
+          <button id="lang-zh" class="active" type="button">中文</button>
+          <button id="lang-en" type="button">EN</button>
+        </span>
       </nav>
     </div>
   </header>
@@ -1932,15 +1943,19 @@
       <div class="container hero-grid">
         <div class="hero-content">
           <span class="micro-label">AI POWERED · COURSE PLANNER</span>
-          <h1 class="hero-title">选课不迷茫，排课不冲突</h1>
-          <p class="hero-subtitle">从学校信息到一周课表，AI 帮你分析培养方案、推荐课程、优化排课时间、标记抢课优先级，最后生成一份带颜色标记的 Excel 课表。</p>
+          <h1 class="hero-title" data-zh="选课不迷茫，排课不冲突" data-en="Pick with ease. Schedule with zero conflicts.">选课不迷茫，排课不冲突</h1>
+          <p class="hero-subtitle" data-zh="从学校信息到一周课表，AI 帮你分析培养方案、推荐课程、优化排课时间、标记抢课优先级，最后生成一份带颜色标记的 Excel 课表。" data-en="From your school catalog to a full weekly timetable: AI analyzes degree plans, recommends courses, optimizes your schedule with enrollment-priority markers, and exports a color-coded Excel workbook.">从学校信息到一周课表，AI 帮你分析培养方案、推荐课程、优化排课时间、标记抢课优先级，最后生成一份带颜色标记的 Excel 课表。</p>
           <div class="hero-cta">
             <a href="https://github.com/ez-hq/uni-course-scheduler/releases/latest/download/uni-course-scheduler.zip" class="btn btn-primary btn-lg" download>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              免费下载个人版
+              <span data-zh="免费下载个人版" data-en="Download free">免费下载个人版</span>
             </a>
-            <a href="#workflow" class="btn btn-secondary btn-lg">查看流程</a>
+            <a href="#workflow" class="btn btn-secondary btn-lg"><span data-zh="查看流程" data-en="See how it works">查看流程</span></a>
           </div>
+          <p class="hero-ziplinks">
+            <a class="dl-ziplink" href="https://github.com/ez-hq/uni-course-scheduler/releases/latest/download/uni-course-scheduler-zh.zip" download>中文版 ZIP（zh）</a>
+            <a class="dl-ziplink" href="https://github.com/ez-hq/uni-course-scheduler/releases/latest/download/uni-course-scheduler-en.zip" download>English ZIP（en）</a>
+          </p>
           <p class="hero-trust">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
             <span>云端任务 ¥0.5/次，每次执行前都会确认。不编造课程信息，查不到的字段会提示你补充。</span>
@@ -2288,9 +2303,17 @@
         <div class="install-cta">
           <a href="https://github.com/ez-hq/uni-course-scheduler/releases/latest/download/uni-course-scheduler.zip" class="btn btn-primary btn-lg" download>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            下载安装包（个人版）
+            <span data-zh="下载安装包（个人版）" data-en="Download installer (personal)">下载安装包（个人版）</span>
           </a>
-          <p class="install-cta-alt"><a href="https://github.com/ez-hq/uni-course-scheduler/releases/latest/download/uni-course-scheduler.zip" download>仅下载 Skill 包</a> · <a href="https://github.com/ez-hq/uni-course-scheduler" target="_blank" rel="noopener">GitHub 仓库</a></p>
+          <p class="install-cta-alt">
+            <a href="https://github.com/ez-hq/uni-course-scheduler/releases/latest/download/uni-course-scheduler.zip" download><span data-zh="仅下载 Skill 包" data-en="Skill package only">仅下载 Skill 包</span></a>
+            <span data-zh=" / " data-en=" | " style="opacity:.5"> · </span>
+            <a href="https://github.com/ez-hq/uni-course-scheduler/releases/latest/download/uni-course-scheduler-zh.zip" download>中文版(zh)</a>
+            <span data-zh=" / " data-en=" | " style="opacity:.5"> · </span>
+            <a href="https://github.com/ez-hq/uni-course-scheduler/releases/latest/download/uni-course-scheduler-en.zip" download>EN(/en)</a>
+            <span data-zh=" · " data-en=" · " style="opacity:.5"></span>
+            <a href="https://github.com/ez-hq/uni-course-scheduler" target="_blank" rel="noopener"><span data-zh="GitHub 仓库" data-en="GitHub repo">GitHub 仓库</span></a>
+          </p>
         </div>
       </div>
     </section>
@@ -2614,21 +2637,33 @@
   }, true);
 
   // 动态显示当前最新版本号（从 GitHub latest release 获取）
-  function loadLatestVersion() {
+  function loadLatestVersion(lang) {
     var el = document.getElementById("latest-version");
     if (!el) return;
+    if (lang === "en") { el.textContent = "v2.6.5-en"; return; }
     fetch("https://api.github.com/repos/ez-hq/uni-course-scheduler/releases/latest", {headers: {"Accept": "application/vnd.github+json"}})
       .then(function(r) { return r.json(); })
       .then(function(d) {
-        if (d && d.tag_name) {
-          el.textContent = d.tag_name;
-        } else {
-          el.textContent = "v2.6.2";
-        }
+        if (d && d.tag_name) { el.textContent = d.tag_name; } else { el.textContent = "v2.6.2"; }
       })
       .catch(function() { el.textContent = "v2.6.2"; });
   }
-  loadLatestVersion();
+
+  // 语言切换
+  function applyLang(lang) {
+    document.documentElement.setAttribute("data-lang", lang);
+    document.getElementById("lang-zh").classList.toggle("active", lang === "zh");
+    document.getElementById("lang-en").classList.toggle("active", lang === "en");
+    // 切换所有 双语文案（元素自带 data-zh/data-en，取对应语言写回 textContent）
+    document.querySelectorAll("[data-zh][data-en]").forEach(function(el){
+      var v = lang === "zh" ? el.getAttribute("data-zh") : el.getAttribute("data-en");
+      if (v) el.textContent = v;
+    });
+    loadLatestVersion(lang);
+  }
+  document.getElementById("lang-zh").addEventListener("click", function(){ applyLang("zh"); });
+  document.getElementById("lang-en").addEventListener("click", function(){ applyLang("en"); });
+  applyLang("zh");
 })();
 </script>
 
