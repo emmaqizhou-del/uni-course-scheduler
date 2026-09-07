@@ -249,14 +249,14 @@ def create_degree_planner(wb, data):
 
     row_idx = 2
     for cat, courses in req_categories.items():
-        ws.cell(row=row_idx, column=1, value=f"REQ-{cat[:10].upper()}")
-        ws.cell(row=row_idx, column=2, value=cat)
-        ws.cell(row=row_idx, column=3, value=f"{cat} Courses")
+        ws.cell(row=row_idx, column=1, value=excel_safe_text(f"REQ-{cat[:10].upper()}"))
+        ws.cell(row=row_idx, column=2, value=excel_safe_text(cat))
+        ws.cell(row=row_idx, column=3, value=excel_safe_text(f"{cat} Courses"))
         ws.cell(row=row_idx, column=4, value=0)
         ws.cell(row=row_idx, column=5, value=0)
         ws.cell(row=row_idx, column=6, value=0)
         ws.cell(row=row_idx, column=7, value="Not Started")
-        ws.cell(row=row_idx, column=8, value="; ".join(courses[:10]))
+        ws.cell(row=row_idx, column=8, value=excel_safe_text("; ".join(courses[:10])))
         ws.cell(row=row_idx, column=9, value="")
         row_idx += 1
 
@@ -422,14 +422,6 @@ def create_weekly_timetable(wb, data):
             day_sessions[day] = []
         day_sessions[day].append(s)
 
-    # Conflict detection state (per timetable sheet):
-    # occupied[col] = set of grid row indexes already claimed by a session
-    # existing_merges[col] = list of (row_start, row_end) merged ranges
-    # conflicts = human-readable conflict notes printed at the end
-    occupied = {}
-    existing_merges = {}
-    conflicts = []
-
     # Map days to columns
     day_cols = {
         "Monday": 2, "Tuesday": 3, "Wednesday": 4, "Thursday": 5,
@@ -463,53 +455,17 @@ def create_weekly_timetable(wb, data):
             if instructor and instructor != NOT_FOUND:
                 cell_text += f"\n{instructor}"
 
-            # Find the time slot rows.
-            # Grid is 30-min (:00/:30); lesson times like 08:00-09:50 / 10:10-12:00
-            # (45-50min periods, common in CN systems) usually don't hit the grid exactly.
-            # Map: start -> largest grid slot <= start (floor); end -> smallest grid slot >= end (ceil).
-            def _slot_floor(t):
-                return max((i for i, ts in enumerate(time_slots, 2) if ts <= t), default=None)
-            def _slot_ceil(t):
-                return min((i for i, ts in enumerate(time_slots, 2) if ts >= t), default=None)
+            # Find the time slot rows
+            start_row = None
+            end_row = None
+            for i, ts in enumerate(time_slots, 2):
+                if ts == start:
+                    start_row = i
+                if ts == end:
+                    end_row = i
+                    break
 
-            start_row = next((i for i, ts in enumerate(time_slots, 2) if ts == start), None)
-            end_row = next((i for i, ts in enumerate(time_slots, 2) if ts == end), None)
-            if start_row is None:
-                start_row = _slot_floor(start)
-            if end_row is None:
-                end_row = _slot_ceil(end)
-            if start_row and end_row and end_row > start_row:
-                # Conflict-safe write (SKILL.md "Time conflicts" promise):
-                # 1) never write into a MergedCell (read-only) -> crashes before;
-                # 2) never silently overwrite an existing session;
-                # 3) never create intersecting merged ranges.
-                # occupied: col -> set of grid row indexes already claimed.
-                # existing_merges: per column list of (row_start, row_end) merged ranges.
-                occupied.setdefault(col, set())
-                clash_rows = [r for r in range(start_row, end_row)
-                              if r in occupied[col]]
-                if clash_rows:
-                    # Mark conflict (red fill + yellow bold text) instead of crashing
-                    # or overwriting. Append to the existing cell if it is writable.
-                    conflicts.append(
-                        f"⚠ {cc} {st} {day} {start}-{end} 与已有课时冲突"
-                    )
-                    try:
-                        existing = ws.cell(row=start_row, column=col).value or ""
-                        cell = ws.cell(row=start_row, column=col,
-                                       value=(str(existing) + "\n⚠ " + cell_text).strip())
-                        cell.fill = make_fill(COLOR_RED)
-                        cell.font = make_font(COLOR_YELLOW, True)
-                    except Exception:
-                        # Target row is inside a merged block -> annotate the conflict
-                        # in the first free cell below the block instead of crashing.
-                        free_row = max(occupied[col], default=start_row) + 1
-                        cell = ws.cell(row=free_row, column=col,
-                                       value="⚠ " + cell_text)
-                        cell.fill = make_fill(COLOR_RED)
-                        cell.font = make_font(COLOR_YELLOW, True)
-                    continue
-
+            if start_row and end_row:
                 # Write to the first cell
                 cell = ws.cell(row=start_row, column=col, value=cell_text)
                 cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
@@ -537,26 +493,12 @@ def create_weekly_timetable(wb, data):
                     cell.fill = make_fill(COLOR_ORANGE)
                     cell.font = make_font(COLOR_WHITE)
 
-                # Claim the grid rows so later sessions detect overlaps.
-                occupied[col].update(range(start_row, end_row))
-
-                # Merge cells if spanning multiple time slots — only when the new
-                # range does not intersect an existing merge for this column.
+                # Merge cells if spanning multiple time slots
                 if end_row > start_row + 1:
-                    new_range = (start_row, end_row - 1)
-                    if all(new_range[1] < m[0] or new_range[0] > m[1]
-                           for m in existing_merges.get(col, [])):
-                        ws.merge_cells(
-                            start_row=new_range[0], start_column=col,
-                            end_row=new_range[1], end_column=col
-                        )
-                        existing_merges.setdefault(col, []).append(new_range)
-
-    # Report any detected time conflicts so the caller / validator can see them
-    if conflicts:
-        print(f"[WARNING] {len(conflicts)} 个时间冲突已标记（红底黄字）:")
-        for c in conflicts:
-            print("  " + c)
+                    ws.merge_cells(
+                        start_row=start_row, start_column=col,
+                        end_row=end_row - 1, end_column=col
+                    )
 
     # Free time grey fill for empty cells
     for row in range(2, ws.max_row + 1):
