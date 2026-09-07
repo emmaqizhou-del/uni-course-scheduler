@@ -1,2 +1,7 @@
 # 本地存档目录：目录库已弃用（agent 采集模式），文本不上公开仓库
 catalog-library/
+
+# OS & cache
+.DS_Store
+__pycache__/
+*.pyc
