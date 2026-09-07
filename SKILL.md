@@ -53,7 +53,7 @@ Help university students plan courses, build weekly timetables, and export Excel
 ## Prerequisites
 
 - Python 3.10+ with `openpyxl` and `icalendar` packages
-- If missing, install: `pip install openpyxl icalendar pytz`
+- If missing, install: `pip install "openpyxl>=3.1,<3.2" "icalendar>=5,<6" "pytz==2024.2"`
 
 ## Interaction Flow
 
@@ -242,7 +242,7 @@ Before running `loomloom market quote --input-file <request.json>`:
       for a cloud run but then cannot generate the deliverables. Therefore, BEFORE
       `loomloom market quote` / before the user confirms any fee, verify locally:
       `python3 -c "import openpyxl, icalendar"`. If it fails, tell the user what to
-      install (see Prerequisites: `pip install openpyxl icalendar pytz`) and only
+      install (see Prerequisites: `pip install "openpyxl>=3.1,<3.2" "icalendar>=5,<6" "pytz==2024.2"`) and only
       proceed with the cloud run after the check passes (or after the user confirms
       they will install it before generating files). Never let a paid cloud run
       complete while the local render step is guaranteed to fail.

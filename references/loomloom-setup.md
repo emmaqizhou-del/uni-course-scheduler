@@ -50,7 +50,9 @@ loomloom doctor -s <你选平台的server>   # 验证登录成功
 1. 按上表去你选平台的**控制台申请 API 密钥**（胜算云：console.shengsuanyun.com；CogFoundry：CogFoundry 控制台）——**密钥只写进本机文件，不要贴进任何对话**
 2. 克隆仓库并按 README 安装：
    ```bash
-   git clone https://gitee.com/cogfoundry/loomloom.git
+   git clone --branch <reviewed-tag> --depth 1 https://gitee.com/cogfoundry/loomloom.git
+   cd loomloom && cat <published checksum> && <verify>  # verify release integrity
+   # never clone the live 'main' branch from an untrusted source
    ```
 3. 在 `~/.zshrc` 或 `~/.bashrc` 配置环境变量（**用你选那行的 server 和 token 变量名**）：
    - 胜算云（中国大陆支付）：

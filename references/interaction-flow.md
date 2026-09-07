@@ -97,29 +97,29 @@ correct dates.
 
 ---
 
-## Step 7 — Generate Excel
+## Step 7 — Generate Workbook
 
-After collecting all inputs:
+After collecting all inputs, choose the execution route by the request itself — NOT by whether the CLI is installed. Follow the authoritative routing in `SKILL.md` ("Execution routing rules"). Decision rule:
 
-1. If LoomLoom CLI is available, run the 3-step cloud pipeline:
-   - Step 1: Course Catalog Analysis (stp_catalog)
-   - Step 2: Course Recommendation (stp_recommend)
-   - Step 3: Schedule Generation (stp_schedule)
-   Then pass the combined JSON output to `scripts/generate_excel.py`.
+1. **Batch / multi-school / institutional / decision-report needs → Cloud Standard Mode.**
+   - Run the fixed 3-step cloud pipeline: Step 1 `stp_catalog` → Step 2 `stp_recommend` → Step 3 `stp_schedule`.
+   - Then pass the combined JSON output to `scripts/generate_excel.py`.
+   - Before submitting, get explicit confirmation: the service/endpoint, the data categories transmitted, the fee estimate, and why cloud is needed (see SKILL.md "Cloud mode rules").
 
-2. If LoomLoom is not available, use local reasoning:
-   - The Agent analyzes the course catalog using web search
-   - The Agent generates recommendations based on the student's goals
-   - The Agent creates a weekly schedule with conflict detection
-   - Save the combined JSON to a temp file
-   - Run `scripts/generate_excel.py` on the JSON file
+2. **Single school + single student + personal use → Local Personal Lightweight Mode.**
+   - The Agent analyzes the course catalog using web search, generates recommendations based on the student's goals, and creates a weekly schedule with conflict detection.
+   - Save the combined JSON to a temp file, then run `scripts/generate_excel.py` on it.
+   - Having the CLI installed alone NEVER authorizes cloud submission.
 
-3. Validate the output:
+3. **User explicitly chose Cloud, or batch/institutional → never downgrade to local.**
+   - Fee / balance objections are handled by confirmation / top-up guidance, not by silently switching a cloud-bound request to local.
+
+4. Validate the output:
    ```bash
    python3 scripts/validate_schedule.py <excel_file.xlsx>
    ```
 
-4. Deliver the .xlsx file to the student.
+5. Deliver the .xlsx file to the student.
 
 ---
 

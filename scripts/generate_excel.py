@@ -104,16 +104,30 @@ def set_column_widths(ws, widths):
             ws.column_dimensions[get_column_letter(i)].width = width
 
 
+def excel_safe_text(value):
+    """Neutralize spreadsheet formula injection: prefix '=', '+', '-', '@'
+    (or leading-whitespace variants) so Excel/Sheets treats the cell as text,
+    never as a formula. Applies before writing untrusted (web/cloud/catalog) strings."""
+    if value is None:
+        return None
+    text = str(value)
+    stripped = text.lstrip()
+    if stripped.startswith(("=", "+", "-", "@")):
+        return "'" + text
+    return text
+
+
 def safe_val(val, default=NOT_FOUND):
-    """Return val if not None/empty, else default. Converts lists/dicts to strings."""
+    """Return val if not None/empty, else default. Converts lists/dicts to strings.
+    Safe for spreadsheet output: scrubs formula-prefix injection."""
     if val is None or val == "" or val == "NOT_FOUND":
         return default
     if isinstance(val, (list, dict)):
         if isinstance(val, list):
             joined = "; ".join(str(v) for v in val if v)
-            return joined if joined else default
-        return json.dumps(val, ensure_ascii=False)
-    return val
+            return excel_safe_text(joined) if joined else default
+        return excel_safe_text(json.dumps(val, ensure_ascii=False))
+    return excel_safe_text(val)
 
 
 # ─── Sheet 1: Course Overview ──────────────────────────────────────────────
