@@ -106,7 +106,7 @@ uni-course-scheduler/
 ├── SKILL.md                      # 主指令（两种模式）
 ├── README.md                     # 本说明（英文版）
 ├── README.zh-CN.md               # 本说明（中文版）
-├── LICENSE                       # 个人使用许可
+├── LICENSE                       # MIT 开源 / 云端专有
 ├── agents/
 │   └── openai.yaml               # OpenAI / 兼容 agent 元数据
 ├── references/
