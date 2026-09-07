@@ -14,7 +14,7 @@ description: >-
   no batch pipeline, no standardized decision report).
 version: 2.6.2
 author: course-scheduler
-license: LicenseRef-Personal-Use
+license: MIT
 agent_created: true
 ---
 

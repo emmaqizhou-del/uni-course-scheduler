@@ -2,7 +2,7 @@
 
 > AI 大学选课规划助理：分析官方课程目录，智能推荐课程，生成无冲突的每周课表，并导出 Excel（本地/云端）与 ICS 日历文件（云端标准模式专属）。
 
-[![License](https://img.shields.io/badge/license-Personal%20Use-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **语言 / Language:** [English](README.md) | [中文](README.zh-CN.md)
 
@@ -28,7 +28,7 @@
 
 ### 1. 本地个人版（免费）
 由本地 agent 自行检索并核实官方课程目录，生成 6-sheet Excel + 文字版每周概览。
-- 免费，仅限单人单校，个人使用。
+- 本地版开源（MIT），可自用或再分发；云端标准模式按次付费。
 - 无批量管道、无标准决策报告、无可下载 `.ics` 日历、无深度毕业审计。
 
 ### 2. 云端标准模式（付费）
@@ -137,7 +137,9 @@ uni-course-scheduler/
 
 ## 许可
 
-**个人使用许可 — 禁止商业再分发。** 个人使用免费；商业再分发或在付费市场上架需作者书面授权。见 [LICENSE](LICENSE)（以中文文本为准）。
+**MIT 开源许可（本地 Skill）。** 本仓库内本地 Skill 代码（SKILL.md、scripts、references、agents、文档）以 MIT License 开源 —— 可自由使用、修改、分发，含商用。
+
+> ⚠️ **云端服务为专有资产、不属本开源范围。** 托管于 LoomLoom 平台（胜算云 Shengsuanyun / CogFoundry）的云端模板（TemplateSpec）与提示词管线，仍为作者 ez-hq 专有，仅通过付费执行授权使用。见 [LICENSE](LICENSE)（以中文文本为准）。
 
 ---
 

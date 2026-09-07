@@ -2,7 +2,7 @@
 
 > AI-powered university course planning assistant — analyze course catalogs, get smart course recommendations, build conflict-free weekly timetables, and export Excel (local + cloud) and ICS calendar files (cloud standard mode only).
 
-[![License](https://img.shields.io/badge/license-Personal%20Use-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **Language / 语言:** [English](README.md) | [中文](README.zh-CN.md)
 
@@ -137,7 +137,9 @@ uni-course-scheduler/
 
 ## License
 
-**Personal Use License — No Commercial Redistribution.** Free for personal use; commercial redistribution or re-listing on paid marketplaces requires the author's written permission. See [LICENSE](LICENSE) (Chinese text prevails).
+**MIT License.** The local Skill code (SKILL.md, scripts, references, agents, docs) is open source under the MIT License — free to use, modify, and distribute, including for commercial use.
+
+> ⚠️ **Cloud Service is proprietary and NOT part of this open-source release.** The TemplateSpec & prompt pipeline running on the LoomLoom platform (Shengsuanyun / CogFoundry) remains the author's proprietary asset, licensed only per paid execution. See [LICENSE](LICENSE) (中文叙述为准).
 
 ---
 
